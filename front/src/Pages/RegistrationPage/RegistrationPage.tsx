@@ -1,7 +1,6 @@
 import {  Button, Form, Input, notification  } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/api';
-import { globalStore } from '../../store/store';
 
 export const RegistrationPage = () => {
     const navigate = useNavigate();
@@ -14,7 +13,6 @@ export const RegistrationPage = () => {
             })        
             navigate('/login')
         })
-
         .catch(err => notification.open({message: `Ошибка ${err}`}))  
     };
 

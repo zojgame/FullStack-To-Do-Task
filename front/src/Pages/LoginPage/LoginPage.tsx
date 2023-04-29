@@ -10,21 +10,17 @@ export const LoginPage = () => {
     const onFinishHandle = (values : any) => {
         authUser(values.username, values.password)
         .then(res => {
+            navigate('/')
             setCookie('token', res.data.token)
             setCookie('user', values.username)
+            notification.open({
+                message: 'Вы успешно вошли!'
+            })
         })
         .catch(err => {
             notification.open({
                 message: `Ошибка ${err}`
             })
-        })
-        .finally(() => {
-            if(cookie.token){
-                navigate('/')
-                notification.open({
-                    message: 'Вы успешно вошли!'
-                })
-            }            
         })
     };
 

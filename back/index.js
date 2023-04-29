@@ -5,7 +5,7 @@ const taskRouter = require('./routers/taskRouter')
 const cors = require('cors') 
 require('dotenv').config()
 
-const url = "mongodb+srv://admin:admin@cluster0.eecck2a.mongodb.net/test";
+const url = process.env.DATABASE;
 
 
 const application = express();
@@ -16,11 +16,12 @@ application.use('/auth', authRouter)
 application.use('/task', taskRouter)
 
 const PORT = process.env.PORT || 8080;
+const HOST = process.env.HOST || 'localhost';
 
 const start = async() => {
     try {
         await mongoose.connect(url);
-        application.listen(PORT, () => console.log(`server started on localhost:${PORT}`));   
+        application.listen(PORT, () => console.log(`server started on ${HOST}/${PORT}`));   
     } catch (error) {
         console.log(error)
     }

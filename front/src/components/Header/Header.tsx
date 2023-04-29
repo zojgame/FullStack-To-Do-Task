@@ -6,9 +6,10 @@ import { getCookie } from "react-use-cookie";
 import { useCookies } from 'react-cookie';
 import { FiUsers, FiLogIn } from 'react-icons/fi';
 import { BiHomeSmile, BiLogOut } from 'react-icons/bi';
+import { notification } from "antd";
 
 export const Header = () => {
-    const [cookie, setCookie, removeItem] = useCookies(['token']);
+    const [cookie, setCookie, removeItem] = useCookies();
 
     const isUserAuth = cookie.token;
     
@@ -16,7 +17,11 @@ export const Header = () => {
 
     const handleLogout = () => {
         removeItem('token');        
-        navigate('/')
+        removeItem('user');        
+        navigate('/login')
+        notification.open({
+            message: 'Вы вышли'
+        })
     }    
 
    return (
