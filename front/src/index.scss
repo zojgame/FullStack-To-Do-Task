@@ -1,8 +1,8 @@
 
-$primary-color: #20b31b;
-$second-color: #FF9200;
-$third-color: #FFE800;
-$forth-color: #FFE800;
+$primary-color: #5F2580;
+$second-color: #9F3ED5;
+$third-color: #FFFF00;
+$forth-color: #A6A600;
 
 //навбар
 .header{
@@ -20,14 +20,13 @@ $forth-color: #FFE800;
     z-index: 100;
 
     >.button{
-        color: $second-color;
+        color: $third-color;
         cursor: pointer;
         user-select: none;
     }
 
     >.button:hover{
-        color: $third-color;
-        text-decoration: underline;
+        transform: scale(1.05);
     }    
 }
 
@@ -86,18 +85,20 @@ $forth-color: #FFE800;
 .task-container{
     display: grid;
     width: 100%;    
-    background: $third-color;
+    background: $forth-color;
     grid-template-columns: repeat(8, 1fr); 
     grid-template-rows: repeat(6, 1fr); 
     padding: 20px; 
-    height: 200px;
+    box-sizing: border-box;
+    height: 250px;
     border-radius: 20px;
     gap: 10px;
     h2{
         grid-column: 1/10;
         grid-row: 1/2;
         font-size: xx-large;
-        border-bottom: 3px dotted white;
+        color: $third-color;
+        border-bottom: 3px dotted $third-color;
         padding: 0;
         margin: 0;
         align-self: center;
