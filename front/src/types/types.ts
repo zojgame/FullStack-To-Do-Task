@@ -4,7 +4,8 @@ export interface Task {
     isDone: Boolean,
     description: String,
     deadline: Date,
-    owner: String
+    owner: String,
+    created: Date
 }
 
 export interface Item{

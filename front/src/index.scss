@@ -36,6 +36,16 @@ $forth-color: #A6A600;
     margin: 0 auto;
 }
 
+.main-page>div{
+    display: flex;
+    justify-content: space-between;
+    align-items: middle;
+    >ul{
+        display: block;
+        align-self: center;
+    }
+}
+
 
 //авторизация и регистрация
 .login-page-container, .register-page-container{

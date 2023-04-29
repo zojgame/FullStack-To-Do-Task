@@ -1,6 +1,7 @@
 import { makeAutoObservable, configure } from 'mobx';
 import { Task, Item } from '../types/types';
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 
 class Store {
@@ -50,7 +51,10 @@ class Store {
             })
             .then(res => {
                 const userTasks = res.data as Task[]
-                this.userTasks = userTasks.sort((curr, prev) => curr.title.length - prev.title.length)
+                this.userTasks = userTasks.sort((curr, prev) => {
+                    const isBefore = dayjs(curr.created).isBefore(prev.created)
+                    return isBefore ? 1 : -1
+                })
             });
         } catch (error) {
             console.log('error', error)
@@ -86,7 +90,6 @@ class Store {
     async deleteTask(taskId : String, token: String, userName: String){        
         try {
             const URL = `http://127.0.0.1:7000/task/delete/${taskId}`;
-            // const token = localStorage.getItem('token')
             const response = axios.delete(URL, {
             headers: {
                 Authorization: `Bearer ${token}`
