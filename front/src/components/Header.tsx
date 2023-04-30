@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { globalStore } from "../../store/store";
-import { useEffect } from "react";
-import { getCookie } from "react-use-cookie";
 import { useCookies } from 'react-cookie';
 import { FiUsers, FiLogIn } from 'react-icons/fi';
 import { BiHomeSmile, BiLogOut } from 'react-icons/bi';

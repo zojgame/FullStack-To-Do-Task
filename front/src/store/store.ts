@@ -2,6 +2,7 @@ import { makeAutoObservable, configure } from 'mobx';
 import { Task, Item } from '../types/types';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { notification } from 'antd';
 
 
 class Store {
@@ -35,9 +36,13 @@ class Store {
                 headers: {
                     authorization: `Bearer ${token}`
                 }
-            }).then(() => this.getAllUserTasks(userName, token))
+            }).then(() => {
+                this.getAllUserTasks(userName, token)
+                notification.open({message: 'Задача успешно создана'})
+            })
         } catch (error) {
-            console.log('error', error)
+            console.log('error', error);
+            notification.open({message: `Ошибка ${error}`})
         }
     }
 
@@ -76,6 +81,7 @@ class Store {
                 headers: {
                 Authorization: `Bearer ${token}`
             }}).then(res => {
+                notification.open({message: 'Задача успешно обновлена!'})
                 newUserTasks = [...newUserTasks, res.data.task]
                 this.userTasks = newUserTasks.sort((curr, prev) => curr.title.length - prev.title.length);
             });
@@ -84,6 +90,7 @@ class Store {
             
         } catch (error) {
             console.log(error)
+            notification.open({message: `Ошибка ${error}`});
         }
     }
 
@@ -96,29 +103,16 @@ class Store {
             }
         }).then(() => 
         {
+            notification.open({message: 'Задача успешно удалена!'})
             this.getAllUserTasks(userName, token)
         })
 
         return response;
         } catch (error) {
+            notification.open({message: `Ошибка ${error}`})
             console.log(error)
         }
     }
-
-    setMessage(message: string){
-        this.toastMessage = message
-    }
-
-    setCurrentPageItems(items : Item[]){
-        this.currentPageItems = items;
-    }
-
-    authUser(){
-        this.isUserAuth = true;
-    }
-
-    
-    
 }
 
 configure({

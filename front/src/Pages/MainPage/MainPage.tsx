@@ -95,10 +95,10 @@ export const MainPage = observer(() => {
                   </h1>
                   <Menu
                      onClick={onSortMenuClick}
-                     style={{ width: 256 }}
+                     style={{ borderRadius: '5px' }}
                      defaultSelectedKeys={['1']}
                      defaultOpenKeys={['sub1']}
-                     mode="vertical"
+                     mode="vertical"                     
                      items={items}
                   />
                </div>
