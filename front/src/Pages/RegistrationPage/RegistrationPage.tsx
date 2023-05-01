@@ -60,7 +60,7 @@ export const RegistrationPage = () => {
                     <Form.Item>
                         <div className='register-buttons'>
                             <Button type='primary' htmlType='submit'>Создать аккаунт</Button>
-                            <Button type='primary' onClick={onClickRedirectToLoginPage}>Уже есть аккаунт</Button>
+                            <Button type='primary' onClick={onClickRedirectToLoginPage}>Войти</Button>
                         </div>
                     </Form.Item>
                 </Form>                                
