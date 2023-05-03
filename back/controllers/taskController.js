@@ -77,42 +77,28 @@ class taskController{
             console.log(error)
         }
     }
-
-    async createItem(req, res){
+    
+    async getUserDoneTasks(req, res){
         try {
-            const {title, price} = req.body;
-            const item = new Item({title: title, price: price})
-            item.save()
-
-            res.json({message: `Товар ${title} успешно создан`})
+            const userName = req.params.username;
+            const task = (await Task.find())
+            .filter(task => task.owner === userName && task.isDone)
+            res.status(200).json(task)            
         } catch (error) {
-            res.json({message: `Ошибка ${error}`})
+            res.status(400).json({message: 'Пользователь не найден'})
+            console.log(error)
         }
     }
 
-    async getItems(req, res){
+    async getUserNotCompletedTasks(req, res){
         try {
-            const items = await Item.find();
-            res.status(200).json(items);
+            const userName = req.params.username;
+            const task = (await Task.find())
+            .filter(task => task.owner === userName && !task.isDone)
+            res.status(200).json(task)            
         } catch (error) {
-            res.json({message: `Ошибка ${error}`})
-        }
-    }
-
-    async deleteItem(req, res){
-        const basketID = req.body.basketId;
-        const itemID = new ObjectId(req.body.id);
-        try {
-            const currentBasket = await Basket.findById(basketID)           
-
-            const currentItems = currentBasket.items.filter(item => item._id !== itemID)
-            const newBasket = {...currentBasket, items: currentItems}
-            Object.assign(currentBasket, newBasket);
-            currentBasket.save();
-            res.status(200).json({message: 'Товар успешно удалён'})
-            
-        } catch (error) {
-            res.json({message: `Ошибка ${error}`})
+            res.status(400).json({message: 'Пользователь не найден'})
+            console.log(error)
         }
     }
 }

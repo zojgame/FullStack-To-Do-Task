@@ -22,7 +22,7 @@ class Store {
         this.isCreateFormOpen = !this.isCreateFormOpen;
     }
 
-    createTask(title: String, isDone: Boolean, deadline: Date, description: String, token: String, userName: String){
+    async createTask(title: String, isDone: Boolean, deadline: Date, description: String, token: String, userName: String){
         const url = `http://127.0.0.1:7000/task/createTask`;
         try {
             axios.post(url, {
@@ -46,10 +46,52 @@ class Store {
         }
     }
 
-    getAllUserTasks(userName: String, token: String){
+    async getAllUserTasks(userName: String, token: String){
         const url = `http://127.0.0.1:7000/task/getUserTasks/${userName}`
         try {
-            axios.get(url, {
+            await axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(res => {
+                const userTasks = res.data as Task[]
+                this.userTasks = userTasks.sort((curr, prev) => {
+                    const isBefore = dayjs(curr.created).isBefore(prev.created)
+                    return isBefore ? 1 : -1
+                })
+            });
+        } catch (error) {
+            console.log('error', error)
+        }
+        
+    }
+
+    async getUserDoneTasks(userName: String, token: String){
+        const url = `http://127.0.0.1:7000/task/getDoneUserTasks/${userName}`
+        try {
+            await axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(res => {
+                const userTasks = res.data as Task[]
+                this.userTasks = userTasks.sort((curr, prev) => {
+                    const isBefore = dayjs(curr.created).isBefore(prev.created)
+                    return isBefore ? 1 : -1
+                })
+            });
+        } catch (error) {
+            console.log('error', error)
+        }
+        
+    }
+
+    async getUserNotCompletedTasks(userName: String, token: String){
+        const url = `http://127.0.0.1:7000/task/getNotCompletedTasks/${userName}`
+        try {
+            await axios.get(url, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

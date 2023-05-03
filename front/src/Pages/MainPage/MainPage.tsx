@@ -8,9 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { notification } from "antd";
 import { Menu } from "antd";
 import type { MenuProps } from 'antd';
-import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
-import { useState } from "react";
-import { Task } from "../../types/types";
+import { AppstoreOutlined } from '@ant-design/icons';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -32,28 +30,16 @@ function getItem(
 
 const items = [
    getItem('Фильтр', 'sub4', <AppstoreOutlined />, [
-      getItem('Умолчанию', 9),
+      getItem('По Умолчанию', 9),
       getItem('Только сделанные', 10),
       getItem('Только не стеланные', 11),
     ]),
 ]
 
-const filterTasks = (tasks: Task[], filterType: String) => {
-   if(filterType === 'compressed'){
-      return tasks.filter(task => task.isDone);
-      
-   }
-   if(filterType === 'unfinished'){
-      return tasks.filter(task => !task.isDone);
-   }
-   return tasks;
-}
-
 export const MainPage = observer(() => {
    const [cookie] = useCookies()
    const user = cookie.user;
    const token = cookie.token;
-   const [filter, setFilter] = useState('default')
    const navigate = useNavigate();
 
    useEffect(() => {
@@ -69,13 +55,13 @@ export const MainPage = observer(() => {
    const onSortMenuClick = (e: any) => {
       console.log('click ', e);
       if(e.key === '10'){
-         setFilter('compressed')
+         globalStore.getUserDoneTasks(user, token);
       }
       if(e.key === '11'){
-         setFilter('unfinished')
+         globalStore.getUserNotCompletedTasks(user, token);
       }
       if(e.key === '9'){
-         setFilter('default')
+         globalStore.getAllUserTasks(user, token);
       }
    }
 
@@ -109,7 +95,7 @@ export const MainPage = observer(() => {
 
 
             </div>
-            <div className="user-tasks">{filterTasks(globalStore.userTasks, filter).map((task) => {
+            <div className="user-tasks">{globalStore.userTasks.map((task) => {
                return (<UserTask task={task} key={`${task._id}`} />)
             })}
             </div>
