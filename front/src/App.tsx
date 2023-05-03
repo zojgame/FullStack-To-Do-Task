@@ -6,8 +6,6 @@ import {
 } from "react-router-dom";
 import { Header } from './components';
 import { MainPage, LoginPage, RegistrationPage } from './Pages';
-import { useEffect } from 'react';
-import { globalStore } from './store/store';
 
 function App() {
 

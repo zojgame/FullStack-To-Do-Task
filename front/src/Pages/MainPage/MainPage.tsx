@@ -29,7 +29,7 @@ function getItem(
  }
 
 const items = [
-   getItem('Фильтр', 'sub4', <AppstoreOutlined />, [
+   getItem('Фильтровать', 'sub4', <AppstoreOutlined />, [
       getItem('По Умолчанию', 9),
       getItem('Только сделанные', 10),
       getItem('Только не стеланные', 11),
