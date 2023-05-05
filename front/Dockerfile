@@ -4,5 +4,4 @@ COPY package.json .
 RUN npm install
 COPY . .
 EXPOSE 8080
-ENV CI=true
 CMD ["npm", "run", "dev"]
