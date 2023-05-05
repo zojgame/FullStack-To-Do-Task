@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  back: 
+    image: back4
+    restart: always
+    ports: 
+      - 7000:80
+  front:
+    image: front4
+    restart: always
+    ports: 
+      - 8080:80

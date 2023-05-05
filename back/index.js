@@ -15,8 +15,8 @@ application.use(express.json())
 application.use('/auth', authRouter)
 application.use('/task', taskRouter)
 
-const PORT = process.env.PORT || 8080;
-const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 80;
+const HOST = process.env.HOST || '0.0.0.0';
 
 const start = async() => {
     try {
